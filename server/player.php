@@ -12,10 +12,18 @@ class Player {
     private $mServer;
     private $mNick;
     private $mHero;
+    private $mGame;
 
     public function __construct(&$server) {
         $this->mStatus = self::STATUS_WAIT;
         $this->mServer = $server;
+        $this->mHero = null;
+    }
+
+    public function isReady() {
+        logging::d("Player", "check ready. mHero = ");
+        logging::d("Player", $this->mHero);
+        return ($this->mHero != null);
     }
 
     public function onCommand($command) {
@@ -52,8 +60,8 @@ class Player {
     private function onIdleCommand($command) {
         logging::d("Player.onIdleCommand", $command);
         if ($command["op"] == "create") {
-            $ret = $this->mServer->createGame($this, $command["title"]);
-            if ($ret) {
+            $this->mGame = $this->mServer->createGame($this, $command["title"]);
+            if ($this->mGame != null) {
                 $this->mStatus = self::STATUS_ROOM;
             }
         } else if ($command["op"] == "refresh") {
@@ -69,7 +77,16 @@ class Player {
     private function onRoomCommand($command) {
         $op = $command["op"];
         if ($op == "select") {
+            $id = $command["data"];
+            $this->mHero = $this->mGame->findHero($id);
+            logging::d("Player", $this->mHero);
         } else if ($op == "leave") {
+        } else if ($op == "start") {
+            if ($this->mGame->isReady()) {
+                $this->mServer->startGame($this->mGame);
+            } else {
+                $this->mServer->startFail($this);
+            }
         } else {
             return false;
         }

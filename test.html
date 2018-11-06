@@ -1,7 +1,8 @@
 <html>
     <head>
         <script>
-            var ws = new WebSocket("ws://114.215.82.75:19504");
+            // var ws = new WebSocket("ws://114.215.82.75:19504");
+            var ws = new WebSocket("ws://127.0.0.1:19504");
             ws.onopen = function(evt) {
                 console.debug(evt);
             }
@@ -60,6 +61,12 @@
                     op: 'start',
                 });
             }
+            var select_hero = function() {
+                send({
+                     op: 'select',
+                     data: 'brandon',
+                });
+            }
         </script>
     </head>
     <body>
@@ -73,6 +80,7 @@
         <br />
         <button onclick="start()">Start</button>
         <br />
+        <button onclick="select_hero()">Select</button>
         <br />
     </body>
 </html>

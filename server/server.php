@@ -2,6 +2,7 @@
 
 include_once(dirname(__FILE__) . "/player.php");
 include_once(dirname(__FILE__) . "/game.php");
+include_once(dirname(__FILE__) . "/hero.php");
 
 class Server {
     private $ws = null;
@@ -70,11 +71,11 @@ class Server {
         $this->sendToPlayer($player, array("op" => "gameinfo", "data" => $info));
     }
 
-    public function createGame(&$player, $title) {
+    public function &createGame(&$player, $title) {
         foreach ($this->mGames as &$g) {
             if ($g->getTitle() == $title) {
                 $this->sendToPlayer($player, array("op" => "creategame", "data" => "fail"));
-                return false;
+                return null;
             }
         }
         $game = new Game($this, $title, $this->mGameIndex);
@@ -82,10 +83,10 @@ class Server {
         $this->mGames []= $game;
         $this->sendToPlayer($player, array("op" => "creategame", "data" => "success"));
         $this->mGameIndex++;
-        return true;
+        return $game;
     }
 
-    public function joinGame(&$player, $gameid) {
+    public function &joinGame(&$player, $gameid) {
         $game = null;
         foreach ($this->mGames as &$g) {
             if ($g->getId() == $gameid) {
@@ -95,16 +96,25 @@ class Server {
         }
         if ($game == null) {
             $this->sendToPlayer($player, array("op" => "join", "data" => "fail"));
+            return null;
         } else {
             $game->attachPlayer($player);
             $game->broadcastInfo();
             $this->sendToPlayer($player, array("op" => "join", "data" => "success"));
+            return $game;
         }
     }
 
     public function leaveGame(&$player) {
     }
 
+    public function startGame(&$game) {
+        $game->broadcast(array("op" => "start", "data" => "success"));
+    }
+
+    public function startFail(&$player) {
+        $this->sendToPlayer($player, array("op" => "start", "data" => "fail"));
+    }
     ///////////////////////////////////////////////////////
 
     private function send($fd, $data) {
@@ -119,7 +129,7 @@ class Server {
         }
     }
 
-    private function sendToPlayer(&$player, $data) {
+    public function sendToPlayer(&$player, $data) {
         $fd = $this->findSocket($player);
         logging::d("Server", "fd = $fd");
         if ($fd == null) {
