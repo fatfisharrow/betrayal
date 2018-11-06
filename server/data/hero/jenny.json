@@ -1,0 +1,16 @@
+{
+    "name": "Jenny LeClerc",
+    "class": "purple",
+    "prop": {
+        "speed": [2, 3, 4, 4, 4, 5, 6, 8],
+        "might": [3, 4, 4, 4, 4, 5, 6, 8],
+        "sanity": [1, 1, 2, 4, 4, 4, 5, 6],
+        "knowledge": [2, 3, 3, 4, 4, 5, 6, 8],
+    },
+    "start": {
+        "speed": 3,
+        "might": 2,
+        "sanity": 4,
+        "knowledge": 3,
+    }
+}

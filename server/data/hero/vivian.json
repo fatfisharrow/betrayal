@@ -1,0 +1,16 @@
+{
+    "name": "Vivian Lopez",
+    "class": "blue",
+    "prop": {
+        "speed": [3, 4, 4, 4, 4, 6, 7, 8],
+        "might": [2, 2, 2, 4, 4, 5, 6, 6],
+        "sanity": [4, 4, 4, 5, 6, 7, 8, 8],
+        "knowledge": [4, 5, 5, 5, 5, 6, 6, 7],
+    },
+    "start": {
+        "speed": 3,
+        "might": 2,
+        "sanity": 2,
+        "knowledge": 3,
+    }
+}

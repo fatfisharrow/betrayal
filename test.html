@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <script>
+            var ws = new WebSocket("ws://114.215.82.75:19504");
+            ws.onopen = function(evt) {
+                console.debug(evt);
+            }
+            ws.onmessage = function(evt) {
+                var obj = eval('(' + evt.data + ')');
+                console.debug(obj);
+            }
+            ws.onclose = function(evt) {
+            }
+            ws.onerror = function(evt, e) {
+            }
+
+            var send = function(obj) {
+                var text = JSON.stringify(obj);
+                console.debug("send: " + text);
+                ws.send(text);
+            }
+
+        </script>
+        <script>
+            var login = function() {
+                send({
+                    op: 'login',
+                    token: 'aabbcc',
+                });
+            }
+
+            var create = function() {
+                send({
+                    op: 'create',
+                    title: 'test game.',
+                });
+            }
+
+            var refresh = function() {
+                send({
+                    op: 'refresh',
+                });
+            }
+
+            var join = function() {
+                send({
+                    op: 'refresh',
+                    game: 10000,
+                });
+            }
+
+            var leave = function() {
+                send({
+                    op: 'leave',
+                });
+            }
+
+            var start = function() {
+                send({
+                    op: 'start',
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="login()">LOGIN</button>
+        <br />
+        <button onclick="create()">CreateGame</button>
+        <br />
+        <button onclick="refresh()">refresh</button>
+        <br />
+        <button onclick="leave()">LeaveGame</button>
+        <br />
+        <button onclick="start()">Start</button>
+        <br />
+        <br />
+    </body>
+</html>
+
