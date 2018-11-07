@@ -5,6 +5,7 @@ include_once(dirname(__FILE__) . "/game.php");
 include_once(dirname(__FILE__) . "/hero.php");
 
 class Server {
+    public static $nullptr = null;
     private $ws = null;
     private $mClients = array();
     private $mGames = array();
@@ -75,7 +76,7 @@ class Server {
         foreach ($this->mGames as &$g) {
             if ($g->getTitle() == $title) {
                 $this->sendToPlayer($player, array("op" => "creategame", "data" => "fail"));
-                return null;
+                return self::$nullptr;
             }
         }
         $game = new Game($this, $title, $this->mGameIndex);

@@ -11,6 +11,8 @@ var init_page = function() {
         el: "#main-wrapper",
         data: {
             step: STEP_LOGIN,
+            gamelist: [
+            ],
         },
         mounted: function() {
         },
