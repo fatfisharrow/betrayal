@@ -1,0 +1,26 @@
+<script src="[:app]/js/game_page.js"></script>
+<div id="main-wrapper">
+    <div v-cloak>
+        <div v-if="step == 0">
+            <button onclick="login()">LOGIN</button>
+        </div>
+        <div v-if="step == 1">
+            loading
+        </div>
+        <div v-if="step == 2">
+            <button onclick="create()">CreateGame</button>
+            <button onclick="refresh()">refresh</button>
+        </div>
+        <div v-if="step == 3">
+            <button onclick="leave()">LeaveGame</button>
+            <br />
+            <button onclick="start()">Start</button>
+            <br />
+            <button onclick="select_hero()">Select</button>
+        </div>
+        <div v-if="step == 4">
+            GAME
+        </div>
+    </div>
+</div>
+

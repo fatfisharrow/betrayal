@@ -50,6 +50,7 @@ class Player {
         if ($command["op"] == "login") {
             // TODO: do login
             // $this->mNick = "";
+            $this->mServer->loginSuccess($this);
             $this->mStatus = self::STATUS_IDLE;
         } else {
             return false;
