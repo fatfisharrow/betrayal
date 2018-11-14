@@ -49,8 +49,8 @@ Connector.prototype.refreshGameList = function() {
 
 Connector.prototype.joinGame = function(gameid) {
     this.send({
-              op: 'join',
-              game: gameid,
+      op: 'join',
+      game: gameid,
     });
 }
 

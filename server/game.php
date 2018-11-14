@@ -7,6 +7,7 @@ class Game {
     private $mIndex = 0;
     private $mServer;
     private $mHeroes;
+    private $mOwner = null;
 
     public function __construct(&$server, $title, $id) {
         $this->mServer = $server;
@@ -33,6 +34,29 @@ class Game {
 
     public function attachPlayer(&$player) {
         $this->mPlayers []= $player;
+        if ($this->mOwner == null) {
+            $this->mOwner = $player;
+        }
+    }
+
+    public function detachPlayer(&$player) {
+        logging::d("Game", "about to detach player: " . $player->mPlayerId . ":" . $player->mNick);
+        foreach ($this->mPlayers as $k => &$v) {
+            if ($v == $player) {
+                logging::d("Game", "detached.");
+                unset($this->mPlayers[$k]);
+                if ($this->mOwner == $player) {
+                    reset($this->mPlayers);
+                    $this->mOwner = current($this->mPlayers);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isEmpty() {
+        return (count($this->mPlayers) == 0);
     }
 
     public function broadcast($data) {

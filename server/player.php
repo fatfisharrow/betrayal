@@ -8,13 +8,16 @@ class Player {
     const STATUS_GAME = 3;
     const STATUS_BLACKLISTED = 4;
 
-    private $mStatus;
+    public $mPlayerId;
+    public $mStatus;
+    public $mNick;
+    public $mHero;
+
     private $mServer;
-    private $mNick;
-    private $mHero;
     private $mGame;
 
     public function __construct(&$server) {
+        $this->mPlayerId = 0;
         $this->mStatus = self::STATUS_WAIT;
         $this->mServer = $server;
         $this->mHero = null;
@@ -24,6 +27,10 @@ class Player {
         logging::d("Player", "check ready. mHero = ");
         logging::d("Player", $this->mHero);
         return ($this->mHero != null);
+    }
+
+    public function &game() {
+        return $this->mGame;
     }
 
     public function onCommand($command) {
@@ -50,6 +57,9 @@ class Player {
         if ($command["op"] == "login") {
             // TODO: do login
             // $this->mNick = "";
+            $this->mPlayerId = rand() % 10000;
+            $this->mNick = "TEST NickName";
+
             $this->mServer->loginSuccess($this);
             $this->mStatus = self::STATUS_IDLE;
         } else {
@@ -64,11 +74,16 @@ class Player {
             $this->mGame = $this->mServer->createGame($this, $command["title"]);
             if ($this->mGame != null) {
                 $this->mStatus = self::STATUS_ROOM;
+                $this->mGame->broadcastInfo();
             }
         } else if ($command["op"] == "refresh") {
             $this->mServer->sendGameList($this);
         } else if ($command["op"] == "join") {
             $gameid = $command["game"];
+            $this->mGame = $this->mServer->joinGame($this, $gameid);
+            if ($this->mGame != null) {
+                $this->mStatus = self::STATUS_ROOM;
+            }
         } else {
             return false;
         }

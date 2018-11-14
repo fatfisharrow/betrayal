@@ -13,6 +13,26 @@ var init_page = function() {
             step: STEP_LOGIN,
             gamelist: [
             ],
+            resources: null,
+            players: null,
+            room: {
+                currenthero: 0,
+            },
+            game: {
+            },
+        },
+        methods: {
+            idle_joinGame: function(evt) {
+                var gid = $(evt.currentTarget).attr("gid");
+                console.debug(gid);
+                connector.joinGame(gid);
+            },
+            room_nextHero: function(evt) {
+                this.room.currenthero++;
+                if (this.room.currenthero >= 12) {
+                    this.room.currenthero = 0;
+                }
+            },
         },
         mounted: function() {
         },

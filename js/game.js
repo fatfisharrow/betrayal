@@ -36,13 +36,18 @@ $(document).ready(function() {
         }
     });
 
-    var loadResources = function() {
+    var loadComplete = function() {
+        console.debug(resource.heroes);
+        Page.resources = resource;
         Page.step = STEP_IDLE;
+    }
+
+    var loadResources = function() {
         console.debug("loadResources.");
         resource = new Resource(function(percent) {
             console.debug(percent);
             if (percent == 24) {
-                console.debug(resource.heroes);
+                loadComplete();
             }
         });
         resource.load_all();

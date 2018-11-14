@@ -49,6 +49,12 @@ class Server {
 
     public function onClose(swoole_server $server, $fd) {
         logging::d("Server", "webserver close: $fd.");
+        $player = $this->findPlayer($fd);
+
+        // logging::d("Server", "player leave game:");
+        // logging::d("Server", $player);
+
+        $this->leaveGame($player);
         $this->removeClient($fd);
     }
 
@@ -84,7 +90,25 @@ class Server {
         $this->mGames []= $game;
         $this->sendToPlayer($player, array("op" => "creategame", "data" => "success"));
         $this->mGameIndex++;
+        logging::d("Server", "Game created");
+        // logging::d("Server", $game);
+        // logging::d("Server", "by player");
+        // logging::d("Server", $player);
         return $game;
+    }
+
+    public function destroyGame(&$game) {
+        logging::d("Server", "about to destroy game:");
+        logging::d("Server", $game);
+
+        foreach ($this->mGames as $k => &$g) {
+            if ($g == $game) {
+                unset($this->mGames[$k]);
+                logging::d("Server", "Game destroyed.");
+                // logging::d("Server", $game);
+                break;
+            }
+        }
     }
 
     public function &joinGame(&$player, $gameid) {
@@ -97,7 +121,7 @@ class Server {
         }
         if ($game == null) {
             $this->sendToPlayer($player, array("op" => "join", "data" => "fail"));
-            return null;
+            return self::$nullptr;
         } else {
             $game->attachPlayer($player);
             $game->broadcastInfo();
@@ -107,6 +131,19 @@ class Server {
     }
 
     public function leaveGame(&$player) {
+        $game = $player->game();
+        if ($game == null) {
+            logging::d("Server", "not join any game.");
+            return null;
+        }
+        $game->detachPlayer($player);
+        if ($game->isEmpty()) {
+            logging::d("Server", "destroy game.");
+            $this->destroyGame($game);
+        } else {
+            logging::d("Server", "no need to destroy game.");
+            $game->broadcastInfo();
+        }
     }
 
     public function startGame(&$game) {
@@ -152,11 +189,11 @@ class Server {
         return $this->mClients[$fd];
     }
 
-    private function findPlayer($fd) {
+    private function &findPlayer($fd) {
         if (isset($this->mClients[$fd])) {
             return $this->mClients[$fd];
         }
-        return null;
+        return self::$nullptr;
     }
 
     private function findSocket(&$player) {
