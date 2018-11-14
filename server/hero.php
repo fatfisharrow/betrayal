@@ -16,7 +16,7 @@ class Hero {
     public static function createHeroes() {
         $heroes = array();
 
-        $path = "./data/hero/";
+        $path = DATA_PATH . "/hero/";
         $dir = opendir($path);
         if ($dir) {
             while (($file = readdir($dir)) !== false) {
@@ -24,7 +24,7 @@ class Hero {
                 $c = json_decode($c, true);
 
                 $h = new Hero();
-                $h->identify = basename($file, ".json");
+                $h->identify = $c["identify"]; // basename($file, ".json");
                 $h->name = $c["name"];
                 $h->class = $c["class"];
                 $h->speed = $c["prop"]["speed"];

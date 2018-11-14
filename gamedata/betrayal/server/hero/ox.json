@@ -1,16 +1,17 @@
 {
+    "identify": "ox",
     "name": "Ox Bellows",
     "class": "red",
     "prop": {
         "speed": [2, 2, 2, 3, 4, 5, 5, 6],
         "might": [4, 5, 5, 6, 6, 7, 8, 8],
         "sanity": [2, 2, 3, 4, 5, 5, 6, 7],
-        "knowledge": [2, 2, 3, 3, 5, 5, 6, 6],
+        "knowledge": [2, 2, 3, 3, 5, 5, 6, 6]
     },
     "start": {
         "speed": 4,
         "might": 2,
         "sanity": 2,
-        "knowledge": 2,
+        "knowledge": 2
     }
 }

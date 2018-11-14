@@ -1,0 +1,26 @@
+{
+    "identify": "betrayal",
+    "title": "betrayal at the house on the hill",
+    "resources": {
+        "heroes": [
+            { "identify": "brandon", "profile": "gamedata/betrayal/server/hero/brandon.json", "portrait": "img/betrayal/heroes/green.png" },
+            { "identify": "peter", "profile": "gamedata/betrayal/server/hero/peter.json", "portrait": "img/betrayal/heroes/green.png" },
+
+            { "identify": "madame", "profile": "gamedata/betrayal/server/hero/madame.json", "portrait": "img/betrayal/heroes/blue.png" },
+            { "identify": "vivian", "profile": "gamedata/betrayal/server/hero/vivian.json", "portrait": "img/betrayal/heroes/blue.png" },
+
+            { "identify": "missy", "profile": "gamedata/betrayal/server/hero/missy.json", "portrait": "img/betrayal/heroes/yellow.png" },
+            { "identify": "zoe", "profile": "gamedata/betrayal/server/hero/zoe.json", "portrait": "img/betrayal/heroes/yellow.png" },
+
+            { "identify": "darrin", "profile": "gamedata/betrayal/server/hero/darrin.json", "portrait": "img/betrayal/heroes/red.png" },
+            { "identify": "ox", "profile": "gamedata/betrayal/server/hero/ox.json", "portrait": "img/betrayal/heroes/red.png" },
+
+            { "identify": "heather", "profile": "gamedata/betrayal/server/hero/heather.json", "portrait": "img/betrayal/heroes/purple.png" },
+            { "identify": "jenny", "profile": "gamedata/betrayal/server/hero/jenny.json", "portrait": "img/betrayal/heroes/purple.png" },
+
+            { "identify": "father", "profile": "gamedata/betrayal/server/hero/father.json", "portrait": "img/betrayal/heroes/white.png" },
+            { "identify": "professor", "profile": "gamedata/betrayal/server/hero/professor.json", "portrait": "img/betrayal/heroes/white.png" }
+        ]
+    }
+}
+

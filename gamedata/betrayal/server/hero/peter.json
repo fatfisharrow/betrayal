@@ -1,16 +1,17 @@
 {
+    "identify": "peter",
     "name": "Peter Akimoto",
     "class": "green",
     "prop": {
         "speed": [3, 3, 3, 4, 6, 6, 7, 7],
         "might": [2, 3, 3, 4, 5, 5, 6, 8],
         "sanity": [3, 4, 4, 4, 5, 6, 6, 7],
-        "knowledge": [3, 4, 4, 5, 6, 7, 7, 8],
+        "knowledge": [3, 4, 4, 5, 6, 7, 7, 8]
     },
     "start": {
         "speed": 3,
         "might": 2,
         "sanity": 3,
-        "knowledge": 2,
+        "knowledge": 2
     }
 }

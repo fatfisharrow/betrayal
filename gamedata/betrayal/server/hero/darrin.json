@@ -1,16 +1,17 @@
 {
+    "identify": "darrin",
     "name": "Darrin 'Flash' Williams",
     "class": "red",
     "prop": {
         "speed": [4, 4, 4, 5, 6, 7, 7, 8],
         "might": [2, 3, 3, 4, 5, 6, 6, 7],
         "sanity": [1, 2, 3, 4, 5, 5, 5, 7],
-        "knowledge": [2, 3, 3, 4, 5, 5, 5, 7],
+        "knowledge": [2, 3, 3, 4, 5, 5, 5, 7]
     },
     "start": {
         "speed": 4,
         "might": 2,
         "sanity": 2,
-        "knowledge": 2,
+        "knowledge": 2
     }
 }

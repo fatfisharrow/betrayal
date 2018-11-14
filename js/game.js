@@ -1,5 +1,6 @@
 
 var connector = null;
+var resource = null;
 
 $(document).ready(function() {
     init_page();
@@ -37,7 +38,15 @@ $(document).ready(function() {
 
     var loadResources = function() {
         Page.step = STEP_IDLE;
-        connector.refreshGameList();
+        console.debug("loadResources.");
+        resource = new Resource(function(percent) {
+            console.debug(percent);
+            if (percent == 24) {
+                console.debug(resource.heroes);
+            }
+        });
+        resource.load_all();
+        // connector.refreshGameList();
     }
 });
 

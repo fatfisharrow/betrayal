@@ -1,16 +1,17 @@
 {
+    "identify": "heather",
     "name": "Heather Granville",
     "class": "purple",
     "prop": {
         "speed": [3, 3, 4, 5, 6, 6, 7, 8],
         "might": [3, 3, 3, 4, 5, 6, 7, 8],
         "sanity": [3, 3, 3, 4, 5, 6, 6, 6],
-        "knowledge": [2, 3, 3, 4, 5, 6, 7, 8],
+        "knowledge": [2, 3, 3, 4, 5, 6, 7, 8]
     },
     "start": {
         "speed": 2,
         "might": 2,
         "sanity": 2,
-        "knowledge": 4,
+        "knowledge": 4
     }
 }

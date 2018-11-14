@@ -1,9 +1,11 @@
 <script src="[:app]/js/game_page.js"></script>
 <script src="[:app]/js/connector.js"></script>
+<script src="[:app]/js/resources.js"></script>
+
 <div id="main-wrapper">
     <div v-cloak>
         <div v-if="step == 0">
-            <button onclick="login()">LOGIN</button>
+            <div>connecting to game server.</div>
         </div>
         <div v-if="step == 1">
             loading
