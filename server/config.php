@@ -1,6 +1,7 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../../framework/logging.php");
+include_once(dirname(__FILE__) . "/helper.php");
 
 defined('MAX_ROOMS') or define('MAX_ROOMS', 10);
 

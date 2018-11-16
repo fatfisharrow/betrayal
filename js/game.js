@@ -9,12 +9,15 @@ $(document).ready(function() {
             connector.login();
         },
         onmessage: function(obj) {
+            console.debug("current step = " + Page.step);
+            console.debug("op = " + obj.op);
+
             if (Page.step == STEP_LOGIN) {
                 if (obj.op == "login") {
-                    if (obj.data == "success") {
-                        Page.step = STEP_LOADING;
-                        loadResources();
-                    }
+                    Page.playerid = obj.data.id;
+                    Page.nickname = obj.data.nick;
+                    Page.step = STEP_LOADING;
+                    loadResources();
                 }
             } else if (Page.step == STEP_LOADING) {
             } else if (Page.step == STEP_IDLE) {
@@ -26,6 +29,21 @@ $(document).ready(function() {
                     Page.gamelist = obj.data;
                 }
             } else if (Page.step == STEP_ROOM) {
+                if (obj.op == "gameinfo") {
+                    Page.room.id = obj.data.id;
+                    Page.room.title = obj.data.title;
+                    Page.players = obj.data.players;
+
+                    for (var k in Page.players) {
+                        var identify = Page.players[k].mHero.identify;
+                        for (var i in Page.resources.heroes) {
+                            if (Page.resources.heroes[i].identify == identify) {
+                                Page.players[k].heroindex = i;
+                            }
+                        }
+                    }
+
+                }
             } else if (Page.step == STEP_GAME) {
             } else {
             }

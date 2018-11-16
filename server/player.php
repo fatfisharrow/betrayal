@@ -58,7 +58,7 @@ class Player {
             // TODO: do login
             // $this->mNick = "";
             $this->mPlayerId = rand() % 10000;
-            $this->mNick = "TEST NickName";
+            $this->mNick = "NickName" . $this->mPlayerId;
 
             $this->mServer->loginSuccess($this);
             $this->mStatus = self::STATUS_IDLE;
@@ -92,10 +92,9 @@ class Player {
 
     private function onRoomCommand($command) {
         $op = $command["op"];
-        if ($op == "select") {
-            $id = $command["data"];
-            $this->mHero = $this->mGame->findHero($id);
-            logging::d("Player", $this->mHero);
+        if ($op == "nexthero") {
+            $this->mHero = $this->mGame->findNextHero($this->mHero);
+            $this->mGame->broadcastInfo();
         } else if ($op == "leave") {
         } else if ($op == "start") {
             if ($this->mGame->isReady()) {

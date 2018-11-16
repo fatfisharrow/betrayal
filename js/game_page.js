@@ -13,10 +13,13 @@ var init_page = function() {
             step: STEP_LOGIN,
             gamelist: [
             ],
+            playerid: 0,
+            nickname: '',
             resources: null,
             players: null,
             room: {
-                currenthero: 0,
+                title: "",
+                id: 0,
             },
             game: {
             },
@@ -28,10 +31,8 @@ var init_page = function() {
                 connector.joinGame(gid);
             },
             room_nextHero: function(evt) {
-                this.room.currenthero++;
-                if (this.room.currenthero >= 12) {
-                    this.room.currenthero = 0;
-                }
+                console.debug("nextHero.");
+                connector.nextHero();
             },
         },
         mounted: function() {

@@ -20,6 +20,17 @@ class Hero {
         $dir = opendir($path);
         if ($dir) {
             while (($file = readdir($dir)) !== false) {
+
+                if (!is_file($path . $file)) {
+                    continue;
+                }
+
+                if (extname($file) != "json") {
+                    continue;
+                }
+                
+                logging::d("Debug", "load hero: $file");
+
                 $c = file_get_contents($path . $file);
                 $c = json_decode($c, true);
 

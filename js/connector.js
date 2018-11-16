@@ -29,28 +29,28 @@ Connector.prototype.send = function(obj) {
 
 Connector.prototype.login = function(token) {
     this.send({
-         op: 'login',
-         token: token,
+        op: 'login',
+        token: token,
     });
 }
 
 Connector.prototype.createGame = function(title) {
     this.send({
-         op: 'create',
-         title: title,
+        op: 'create',
+        title: title,
     });
 }
 
 Connector.prototype.refreshGameList = function() {
     this.send({
-         op: 'refresh',
+        op: 'refresh',
     });
 }
 
 Connector.prototype.joinGame = function(gameid) {
     this.send({
-      op: 'join',
-      game: gameid,
+        op: 'join',
+        game: gameid,
     });
 }
 
@@ -62,14 +62,13 @@ Connector.prototype.leaveGame = function() {
 
 Connector.prototype.startGame = function() {
     this.send({
-              op: 'start',
+        op: 'start',
     });
 }
 
-Connector.prototype.selectHero = function(name) {
-    send({
-         op: 'select',
-         data: name,
+Connector.prototype.nextHero = function() {
+    this.send({
+         op: 'nexthero',
     });
 }
 

@@ -60,7 +60,7 @@ class Server {
 
 
     public function loginSuccess(&$player) {
-        $this->sendToPlayer($player, array("op" => "login", "data" => "success"));
+        $this->sendToPlayer($player, array("op" => "login", "data" => array("id" => $player->mPlayerId, "nick" => $player->mNick)));
     }
 
     public function sendGameList(&$player) {
@@ -99,7 +99,7 @@ class Server {
 
     public function destroyGame(&$game) {
         logging::d("Server", "about to destroy game:");
-        logging::d("Server", $game);
+        // logging::d("Server", $game);
 
         foreach ($this->mGames as $k => &$g) {
             if ($g == $game) {

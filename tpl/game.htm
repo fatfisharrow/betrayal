@@ -23,19 +23,25 @@
             <button onclick="connector.refreshGameList()">refresh</button>
         </div>
         <div v-if="step == 3">
-            <table class="table">
-                <tr>
-                    <td>NICK</td>
+            <h4>{{room.title}}</h4>
+            <div>{{room.id}}</div>
+
+            <table class="table table-bordered">
+                <tr v-for="player in players">
+                    <td><img v-bind:src="'[:app]/' + resources.heroes[player.heroindex].portrait" /></td>
                     <td>
-                        <div><img v-bind:src="resources.heroes[room.currenthero].image.src" /></div>
+                        <div>{{resources.heroes[player.heroindex].name}}</div>
                         <div>
-                            <div><span>SPD</span><span v-for="(v, vk) in resources.heroes[room.currenthero].prop.speed" v-bind:class="{ 'currentprop': vk == resources.heroes[room.currenthero].start.speed }">{{v}}</span></div>
-                            <div><span>MHT</span><span v-for="(v, vk) in resources.heroes[room.currenthero].prop.might" v-bind:class="{ 'currentprop': vk == resources.heroes[room.currenthero].start.might }">{{v}}</span></div>
-                            <div><span>SAN</span><span v-for="(v, vk) in resources.heroes[room.currenthero].prop.sanity" v-bind:class="{ 'currentprop': vk == resources.heroes[room.currenthero].start.sanity }">{{v}}</span></div>
-                            <div><span>KLG</span><span v-for="(v, vk) in resources.heroes[room.currenthero].prop.knowledge" v-bind:class="{ 'currentprop': vk == resources.heroes[room.currenthero].start.knowledge }">{{v}}</span></div>
+                            <div><span>SPD</span><span v-for="(v, vk) in resources.heroes[player.heroindex].prop.speed" v-bind:class="{ 'currentprop': vk == resources.heroes[player.heroindex].start.speed }">{{v}}</span></div>
+                            <div><span>MHT</span><span v-for="(v, vk) in resources.heroes[player.heroindex].prop.might" v-bind:class="{ 'currentprop': vk == resources.heroes[player.heroindex].start.might }">{{v}}</span></div>
+                            <div><span>SAN</span><span v-for="(v, vk) in resources.heroes[player.heroindex].prop.sanity" v-bind:class="{ 'currentprop': vk == resources.heroes[player.heroindex].start.sanity }">{{v}}</span></div>
+                            <div><span>KLG</span><span v-for="(v, vk) in resources.heroes[player.heroindex].prop.knowledge" v-bind:class="{ 'currentprop': vk == resources.heroes[player.heroindex].start.knowledge }">{{v}}</span></div>
+                        </div>
+                        <div>
+                            <label>{{player.mNick}}</label>
                         </div>
                     </td>
-                    <td><button v-on:click="room_nextHero">next</button></td>
+                    <td><div v-if="player.mPlayerId == playerid"><button v-on:click="room_nextHero">&gt;</button></div></td>
                 </tr>
             </table>
             <button onclick="leave()">LeaveGame</button>

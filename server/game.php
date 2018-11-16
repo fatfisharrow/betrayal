@@ -9,6 +9,8 @@ class Game {
     private $mHeroes;
     private $mOwner = null;
 
+    private static $nullptr = null;
+
     public function __construct(&$server, $title, $id) {
         $this->mServer = $server;
         $this->mTitle = $title;
@@ -37,6 +39,7 @@ class Game {
         if ($this->mOwner == null) {
             $this->mOwner = $player;
         }
+        $player->mHero = $this->findEmptyHero();
     }
 
     public function detachPlayer(&$player) {
@@ -71,7 +74,7 @@ class Game {
         }
     }
 
-    public function findHero($id) {
+    public function &findHero($id) {
         logging::d("Game", "find hero: $id");
         foreach ($this->mHeroes as &$hero) {
             logging::d("Game", "check hero:");
@@ -80,7 +83,56 @@ class Game {
                 return $hero;
             }
         }
-        return null;
+        return self::$nullptr;
+    }
+
+    private function isHeroSelected(&$hero) {
+        foreach ($this->mPlayers as &$player) {
+            if ($player->mHero == $hero) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function &findEmptyHero() {
+        foreach ($this->mHeroes as &$hero) {
+            logging::d("Game", $hero);
+            if (!$this->isHeroSelected($hero)) {
+                logging::d("Game", "empyt hero: " . $hero->identify);
+                return $hero;
+            }
+        }
+        return self::$nullptr;
+    }
+
+    public function &findNextHero(&$currenthero) {
+        if ($currenthero == null) {
+            return $this->findEmptyHero();
+        }
+
+        $reach = false;
+        foreach ($this->mHeroes as &$hero) {
+            if ($hero == $currenthero) {
+                $reach = true;
+            }
+            if (!$reach) {
+                continue;
+            }
+            if (!$this->isHeroSelected($hero)) {
+                return $hero;
+            }
+        }
+
+        foreach ($this->mHeroes as &$hero) {
+            if ($hero == $currenthero) {
+                return $currenthero;
+            }
+            if (!$this->isHeroSelected($hero)) {
+                return $hero;
+            }
+        }
+        return $currenthero;
     }
 
     public function isReady() {
